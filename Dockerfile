@@ -9,7 +9,7 @@ WORKDIR /usr/src/app
 COPY package*.json ./
 
 # Install all development and runtime dependencies
-RUN npm ci
+RUN if [ -f package-lock.json ]; then npm ci; else npm install; fi
 
 # Copy the rest of the application files
 COPY . .
@@ -30,7 +30,7 @@ ENV PORT=3000
 
 # Copy package files and install only production dependencies to keep the image compact
 COPY package*.json ./
-RUN npm ci --only=production
+RUN if [ -f package-lock.json ]; then npm ci --only=production; else npm install --only=production; fi
 
 # Copy compiled files and assets from the build stage
 COPY --from=builder /usr/src/app/dist ./dist
