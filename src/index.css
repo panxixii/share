@@ -1,0 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Noto+Serif+SC:wght@400;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Noto Serif SC", serif;
+  --font-sans: "Inter", sans-serif;
+  --color-brand-red: #A31D1D;
+  --color-brand-dark: #1C1C1C;
+  --color-brand-beige: #F9F7F2;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-brand-beige); /* Warm scholar paper background */
+  color: var(--color-brand-dark);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Custom scrollbar configurations for interactive panels */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: rgba(0,0,0,0.03);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: rgba(0,0,0,0.15);
+  border-radius: 999px;
+}
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: rgba(0,0,0,0.3);
+}
+
+.animate-spin-slow {
+  animation: spin 30s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

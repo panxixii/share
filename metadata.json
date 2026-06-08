@@ -1,0 +1,6 @@
+{
+  "name": "之江足迹：新时代思想的浙江萌发与今日践行",
+  "description": "专为《习近平新时代中国特色社会主义思想概论》课堂分享设计的交互式多媒体汇报系统。涵盖思想萌发学术讲解幻灯、八八战略、两山理论、千万工程、枫桥与浦江经验的理论展示、思想足迹 GIS 交互地图、理论升华脉络以及参考文献汇编。",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
