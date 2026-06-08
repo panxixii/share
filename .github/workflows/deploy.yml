@@ -1,0 +1,64 @@
+# ==========================================
+# GitHub Pages 极速自动部署流水线 (GitHub Actions)
+# ==========================================
+# 此脚本完美适配 React Vite 项目，将打包后的静态网页部署到您的 GitHub Pages 上。
+# 无需配置任何第三方密钥（如 GCP 等），纯原生 GitHub 安全流运行。
+
+name: Deploy static content to Pages
+
+on:
+  push:
+    branches: ["main", "master"]
+
+  # 允许您手动在 Actions 选项卡中触发重新运行
+  workflow_dispatch:
+
+# 授予 GITHUB_TOKEN 进行 GitHub Pages 发布的必要权限
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# 限制并发运行，确保多次提交时数据一致
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Build Application (Generate Static Files)
+        run: npm run build
+
+      - name: Setup GitHub Pages Config
+        uses: actions/configure-pages@v5
+
+      - name: Upload Build Artifacts
+        uses: actions/upload-pages-artifact@v3
+        with:
+          # 上传 Vite 编译生成的静态网页文件夹
+          path: './dist'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
